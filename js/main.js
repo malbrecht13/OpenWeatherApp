@@ -1,4 +1,4 @@
-// import {WEATHER_API_KEY as key} from "./apikey.js";
+import {WEATHER_API_KEY as key} from "./apikey.js";
 import * as fiveDay from "./fiveDay.js";
 
 
