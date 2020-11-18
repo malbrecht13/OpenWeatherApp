@@ -1,4 +1,6 @@
 import {WEATHER_API_KEY as key} from "./apikey.js";
+import * as fiveDay from "./fiveDay.js";
+
 
 //Launch app
 document.addEventListener('readystatechange', (event) => {
@@ -10,8 +12,7 @@ document.addEventListener('readystatechange', (event) => {
 const initApp = () => {
     displayCurrentDate();
     displayCurrentTime();
-    displayMainIcon(getDefaultCity());
-    displayCurrentCityWeatherStats(getDefaultCity());
+    displayWeather(getDefaultCity());
     setCityNameLabel();
     storeCity();
 }
@@ -28,7 +29,6 @@ const fetchCityWeather = async (name) => {
 }
 
 const setCityNameLabel = async () => {
-    //if there isn't a default city, use Hays
     const searchbox = document.getElementById('searchbox');
     const searchbutton = document.getElementById('search-button');
     const label = document.getElementById('fetched-heading-location-label');
@@ -39,7 +39,7 @@ const setCityNameLabel = async () => {
     })
 
     searchbutton.addEventListener('click', async function(e) {
-        console.log(searchbox.value);
+        // console.log(searchbox.value);
         let response = await fetchCityWeather(searchbox.value);
         if (response.name) {
             label.textContent = response.name;
@@ -57,7 +57,7 @@ const storeCity = () => {
     const defaultButton = document.getElementById('button-add-default');
     defaultButton.addEventListener('click', (e) => {
         localStorage.setItem('CityName', city);
-        console.log(city);
+        // console.log(city);
     })
     
 }
@@ -102,15 +102,26 @@ const displayWeather = (city) => {
     clearWeather();
     displayMainIcon(city);
     displayCurrentCityWeatherStats(city);
+    fiveDay.display5dayIcons(city);
 }
 
 const clearWeather = () => {
     const parentDiv = document.getElementById('large-central-weather-icon');
     const weatherStatsCol1 = document.getElementById('weather-col-1');
     const weatherStatsCol2 = document.getElementById('weather-col-2');
+    const slot1 = document.getElementById('img-5day-1');
+    const slot2 = document.getElementById('img-5day-2');
+    const slot3 = document.getElementById('img-5day-3');
+    const slot4 = document.getElementById('img-5day-4');
+    const slot5 = document.getElementById('img-5day-5');
     deleteContents(weatherStatsCol1);
     deleteContents(weatherStatsCol2);
     deleteContents(parentDiv);
+    deleteContents(slot1);
+    deleteContents(slot2);
+    deleteContents(slot3);
+    deleteContents(slot4);
+    deleteContents(slot5);
 }
 
 
