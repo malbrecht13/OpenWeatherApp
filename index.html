@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dist/css/style.min.css">
+    <script src="./js/main.js" type="module"></script>
+    <title>Current Weather</title>
+</head>
+<body>
+    <div id="wrapper">
+    <header>
+        <h1 id="main-heading" class="label-font">Current Weather</span></h1>
+        <section id="search">
+            <h2 tabindex="-1">Search Cities</h2>
+            <label for="searchbox" aria-label="Enter location to search for weather">Search box for City location</label>
+            <input type="text" id="searchbox" size="40" autocomplete="off" placeholder="Enter City Name" tabindex="0"/>
+            <button id="search-button" type="submit" aria-label="Search for a city's weather" tabindex="0">Search</button>
+        </section>
+    </header>
+    <main>  
+        <section id="display-current-weather">
+            <h2 id="fetched-heading-location-label">Hays, KS</h2>
+            <h3 id="dateSpace"></h3>
+            <h2 id="display-date-label" class="label-font"></h2>
+            <div id="large-central-weather-icon">
+            </div>
+            <h3 id="label-for-todays-weather" class="label-font"></h3>
+        </section>
+        <section id="five-day-forecast">
+            <h2 id="five-day-forecast-heading" class="label-font">5-day forecast</h2>
+            <div>
+                <ul id="five-day-forecast-list">
+                        
+                </ul>
+            </div>
+        </section>
+    </main>
+    </div>
+</body>
+</html>

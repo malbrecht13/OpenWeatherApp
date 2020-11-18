@@ -1,0 +1,44 @@
+
+$bg-gradient: linear-gradient( #438FBC,#BBDEFF, #D3DAE6,  #438FBC);
+$default-font-color: #000;
+$bg-color: #eee;
+
+@mixin mq($size) {
+    @media only screen and (min-width: $size) {
+        @content;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    //base size for phone
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: $default-font-color;
+    width: 100%;
+    min-height: 80vh;
+    //ipad size
+    @include mq(768px) {
+        font-size: 22px;
+    }
+}
+
+body {
+    background-color: #eaeaea;
+    margin: 50px 0;
+}
+
+#wrapper {
+    width: 80%;
+    max-width: 700px;
+    margin: 0 auto;
+    background-image: $bg-gradient;
+    min-height: inherit;
+    border: 20px solid #333333;
+    border-radius: 15px;
+}
