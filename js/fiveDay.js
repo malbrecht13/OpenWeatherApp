@@ -1,18 +1,14 @@
-//fetch5DayData
-//get5DayIcons
-//fetch5DayText
-//append5DayIcons
-//append5DayText
-//get5Dayurl
+//File contains functions for the 5 day forecast
 
-
-
+//Fetch 5 day forecast data and return it as json
 export const fetch5DayData = async (city) => {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=3b5a238031f1f7198b18de4cd2da0e03`);
     const json = await response.json();
     // console.log(json);
     return json;
 }
+
+//Obtain icon names from the openweather API and return them in an array
 export const get5DayIcons = async (city) => {
     const data = await fetch5DayData(city);
     const iconArray = [];
@@ -25,6 +21,7 @@ export const get5DayIcons = async (city) => {
     return iconArray;
 }
 
+//Generates urls for the 5day icon images.  Used as the image src attributes.
 export const create5dayURLs = async (city) => {
     let iconArray = await get5DayIcons(city);
     const urls = iconArray.map(iconID => createImageURL(iconID));
@@ -32,6 +29,8 @@ export const create5dayURLs = async (city) => {
     return urls;
 }
 
+//Creates an array of descriptions for the 5 day images
+//These descriptions are used for the alt attribute for the images
 export const get5dayDescriptions = async (city) => {
     const data = await fetch5DayData(city);
     const descArray = [];
@@ -52,6 +51,7 @@ const createImageURL = (iconID) => {
     return finalIconURL;
 }
 
+//Displays the icons in the 5 day forecast section
 export const display5dayIcons = async (city) => {
     const urls = await create5dayURLs(city);
     const descriptions = await get5dayDescriptions(city);
@@ -72,6 +72,7 @@ export const display5dayIcons = async (city) => {
     slot5.appendChild(image5);
 }
 
+//Creates the 5day forecast image
 export const create5dayImage = (url, description) => {
     const image = document.createElement('img');
     image.setAttribute('alt', description); 
@@ -79,6 +80,7 @@ export const create5dayImage = (url, description) => {
     return image;
 }
 
+//Returns an array of the five days that are needed for the 5 day forecast
 export const obtain5dayNames = () => {
     const date = new Date();
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -96,6 +98,7 @@ export const obtain5dayNames = () => {
     return fiveDays;
 }
 
+//Display the day names for the 5 day forecast
 export const display5dayNames = () => {
     const fiveDays = obtain5dayNames();
     const day1 = document.getElementById('div-5day-1');
