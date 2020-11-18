@@ -80,7 +80,8 @@ const displayCurrentDate = () => {
     const date = new Date();
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
     "October", "November", "December"];
-    const today = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const today = `${days[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
     dateLabel.textContent = today;
 }
 
@@ -103,17 +104,21 @@ const displayWeather = (city) => {
     displayMainIcon(city);
     displayCurrentCityWeatherStats(city);
     fiveDay.display5dayIcons(city);
+    fiveDay.display5dayNames();
 }
 
 const clearWeather = () => {
     const parentDiv = document.getElementById('large-central-weather-icon');
     const weatherStatsCol1 = document.getElementById('weather-col-1');
     const weatherStatsCol2 = document.getElementById('weather-col-2');
+    const fiveDayContainer = document.getElementById('five-day-container');
     const slot1 = document.getElementById('img-5day-1');
     const slot2 = document.getElementById('img-5day-2');
     const slot3 = document.getElementById('img-5day-3');
     const slot4 = document.getElementById('img-5day-4');
     const slot5 = document.getElementById('img-5day-5');
+    const header5s = document.querySelectorAll('.five-day-iconAndText > h5');
+    header5s.forEach(header => header.textContent = "");
     deleteContents(weatherStatsCol1);
     deleteContents(weatherStatsCol2);
     deleteContents(parentDiv);

@@ -79,4 +79,45 @@ export const create5dayImage = (url, description) => {
     return image;
 }
 
+export const obtain5dayNames = () => {
+    const date = new Date();
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const currentDay = date.getDay();
+    const fiveDays = [];
+    let count = 5;
+    for(let i=currentDay + 1; count > 0;) {
+        if (i === 7) {
+            i = 0;
+        }
+        fiveDays.push(days[i]);
+        i++;
+        count--;
+    }
+    return fiveDays;
+}
+
+export const display5dayNames = () => {
+    const fiveDays = obtain5dayNames();
+    const day1 = document.getElementById('div-5day-1');
+    const day2 = document.getElementById('div-5day-2');
+    const day3 = document.getElementById('div-5day-3');
+    const day4 = document.getElementById('div-5day-4');
+    const day5 = document.getElementById('div-5day-5');
+    const label1 = document.createElement('h5');
+    label1.textContent = fiveDays[0];
+    const label2 = document.createElement('h5');
+    label2.textContent = fiveDays[1];
+    const label3 = document.createElement('h5');
+    label3.textContent = fiveDays[2];
+    const label4 = document.createElement('h5');
+    label4.textContent = fiveDays[3];
+    const label5 = document.createElement('h5');
+    label5.textContent = fiveDays[4];
+    day1.appendChild(label1);
+    day2.appendChild(label2);
+    day3.appendChild(label3);
+    day4.appendChild(label4);
+    day5.appendChild(label5);
+}
+
 
