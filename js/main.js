@@ -108,7 +108,7 @@ const displayCurrentTime = () => {
     const timeLabel = document.getElementById('timeSpace');
     const date = new Date();
     const hours = date.getHours();
-    const minutes = date.getMinutes();
+    let minutes = date.getMinutes();
     if (minutes < 10) {
         minutes = `0${minutes}`;
     }
