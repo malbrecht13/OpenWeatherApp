@@ -13,8 +13,14 @@ const initApp = () => {
     displayCurrentDate();
     displayCurrentTime();
     displayWeather(getDefaultCity());
+    createAriaLabel(getDefaultCity());
     setCityNameLabel();
     storeCity();
+}
+
+const createAriaLabel = (city) => {
+    const heading = document.getElementById('fetched-heading-location-label');
+    heading.setAttribute('aria-label', city + " is the current city whose weather is being displayed");
 }
 
 const fetchCityWeather = async (name) => {
@@ -94,7 +100,7 @@ const displayCurrentTime = () => {
     if (hours < 12) {
         time = `${hours}:${minutes} AM`;
     } else {
-        time = `${hours}:${minutes} PM`;
+        time = `${hours-12}:${minutes} PM`;
     }
     timeLabel.textContent = time;
 }

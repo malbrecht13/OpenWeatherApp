@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="dist/css/style.min.css">
     <script src="./js/main.js" type="module"></script>
-    <title>Current Weather</title>
+    <title>Today's Weather</title>
 </head>
 <body>
     <div id="wrapper">
     <header>
-        <h1 id="main-heading" class="label-font">Current Weather</span></h1>
+        <h1 id="main-heading" class="label-font" tabindex="0">Current Weather</span></h1>
         <section id="search">
             <h2 tabindex="-1">Search Cities</h2>
             <div id="button-div">
-                <label for="searchbox" aria-label="Enter location to search for weather">Search box for City location</label>
-                 <input type="text" id="searchbox" size="40" autocomplete="off" placeholder="Enter City Name" tabindex="0"/>
+                <label for="searchbox" name="searchbox"></label>
+                 <input type="text" id="searchbox" name="searchbox" size="40" autocomplete="off" placeholder="Search City Name" tabindex="0"/>
                 <button id="search-button" type="submit" aria-label="Search for a city's weather" tabindex="0">Search</button>
             </div>
             <button id="button-add-default">Add current city as default</button>
@@ -24,35 +24,35 @@
     </header>
     <main>  
         <section id="display-current-weather">
-                <h2 id="fetched-heading-location-label"></h2>
+                <h2 id="fetched-heading-location-label" tabindex="0"> </h2>
 
             
-            <h3 id="dateSpace"></h3>
-            <h3 id="timeSpace"></h3>
+            <h3 id="dateSpace" tabindex="0"></h3>
+            <h3 id="timeSpace" tabindex="0"></h3>
             <h2 id="display-date-label" class="label-font"></h2>
             <div id="large-central-weather-icon"></div>
             <div id="weatherstats">
-                <div id="weather-col-1"></div>
-                <div id="weather-col-2"></div>
+                <div id="weather-col-1" tabindex="0"></div>
+                <div id="weather-col-2" tabindex="0"></div>
             </div>
         </section>
         <section id="five-day-forecast">
-            <h2 id="five-day-forecast-heading" class="label-font">5-day forecast</h2>
+            <h2 id="five-day-forecast-heading" class="label-font" tabindex="0">5-day forecast</h2>
             <div id="five-day-container">
                 <div id="div-5day-1" class="five-day-iconAndText">
-                    <div id="img-5day-1"></div>
+                    <div id="img-5day-1" tabindex="0"></div>
                 </div>
                 <div id="div-5day-2" class="five-day-iconAndText">
-                    <div id="img-5day-2"></div>
+                    <div id="img-5day-2" tabindex="0"></div>
                 </div>
                 <div id="div-5day-3" class="five-day-iconAndText">
-                    <div id="img-5day-3"></div>
+                    <div id="img-5day-3" tabindex="0"></div>
                 </div>
                 <div id="div-5day-4" class="five-day-iconAndText">
-                    <div id="img-5day-4"></div>
+                    <div id="img-5day-4" tabindex="0"></div>
                 </div>
                 <div id="div-5day-5" class="five-day-iconAndText">
-                    <div id="img-5day-5"></div>
+                    <div id="img-5day-5" tabindex="0"></div>
                 </div>
             </div>
         </section>
