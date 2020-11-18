@@ -1,12 +1,5 @@
 import {WEATHER_API_KEY as key} from "./apikey.js";
 
-
-
-let date = new Date();
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
-"October", "November", "December"];
-let today = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-
 //Launch app
 document.addEventListener('readystatechange', (event) => {
     if (event.target.readyState === 'complete') {
@@ -15,32 +8,112 @@ document.addEventListener('readystatechange', (event) => {
 });
 
 const initApp = () => {
-    //Add listeners
-
-    //display date
     displayCurrentDate();
-    //ID of 4272782 is for Hays, KS
-    displayMainIcon('Hays');
-    displayCurrentCityWeatherStats('Hays');
-    //search for selected city
-    //load selected city weather icon
-    //displaycurrent date
-    //useCurrent location as default
-    //obtain current location
-    //function to delete children
-}
-
-const displayCurrentDate = () => {
-    let dateLabel = document.querySelector("#dateSpace");
-    dateLabel.textContent = today;
+    displayCurrentTime();
+    displayMainIcon(getDefaultCity());
+    displayCurrentCityWeatherStats(getDefaultCity());
+    setCityNameLabel();
+    storeCity();
 }
 
 const fetchCityWeather = async (name) => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${key}&units=imperial`;
-    const response = await fetch(url);
-    const json = await response.json();
-    return json;
+    try {
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${key}&units=imperial`;
+        const response = await fetch(url);
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        console.error(error);
+    }
 }
+
+const setCityNameLabel = async () => {
+    //if there isn't a default city, use Hays
+    const searchbox = document.getElementById('searchbox');
+    const searchbutton = document.getElementById('search-button');
+    const label = document.getElementById('fetched-heading-location-label');
+    label.textContent = getDefaultCity();
+
+    searchbox.addEventListener('focus', function(e) {
+        searchbox.value = "";
+    })
+
+    searchbutton.addEventListener('click', async function(e) {
+        console.log(searchbox.value);
+        let response = await fetchCityWeather(searchbox.value);
+        if (response.name) {
+            label.textContent = response.name;
+            displayWeather(response.name);
+            storeCity();
+        } else {
+            searchbox.value = "Invalid city.  Please try again...";
+        }
+    })
+}
+
+const storeCity = () => {
+    const cityLabel = document.getElementById('fetched-heading-location-label');
+    const city = cityLabel.textContent;
+    const defaultButton = document.getElementById('button-add-default');
+    defaultButton.addEventListener('click', (e) => {
+        localStorage.setItem('CityName', city);
+        console.log(city);
+    })
+    
+}
+
+const retrieveStoredCity = () => {
+    const storedCity = localStorage.getItem('CityName');
+    return storedCity;
+}
+
+const getDefaultCity = () => {
+    if (localStorage.getItem("CityName") === null) {
+        return 'Hays';
+    } else {
+        return retrieveStoredCity();
+    }
+}
+
+const displayCurrentDate = () => {
+    const dateLabel = document.querySelector("#dateSpace");
+    const date = new Date();
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+    "October", "November", "December"];
+    const today = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+    dateLabel.textContent = today;
+}
+
+const displayCurrentTime = () => {
+    const timeLabel = document.getElementById('timeSpace');
+    const date = new Date();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    let time = "";
+    if (hours < 12) {
+        time = `${hours}:${minutes} AM`;
+    } else {
+        time = `${hours}:${minutes} PM`;
+    }
+    timeLabel.textContent = time;
+}
+
+const displayWeather = (city) => {
+    clearWeather();
+    displayMainIcon(city);
+    displayCurrentCityWeatherStats(city);
+}
+
+const clearWeather = () => {
+    const parentDiv = document.getElementById('large-central-weather-icon');
+    const weatherStatsCol1 = document.getElementById('weather-col-1');
+    const weatherStatsCol2 = document.getElementById('weather-col-2');
+    deleteContents(weatherStatsCol1);
+    deleteContents(weatherStatsCol2);
+    deleteContents(parentDiv);
+}
+
+
 
 const displayMainIcon = async (city) => {
     const data = await fetchCityWeather(city);
@@ -68,7 +141,7 @@ const createImageURL = (iconID) => {
 const displayCurrentCityWeatherStats = async (city) => {
     //obtain high temp, low temp, humidity, wind speed
     const weatherData = await getWeatherStats(city);
-    console.log(weatherData);
+    // console.log(weatherData);
     createWeatherColumn1Text();
     createWeatherColumn2TextDynamically(weatherData);
 
@@ -78,8 +151,8 @@ const getWeatherStats = async (city) => {
     const data = await fetchCityWeather(city);
     // console.log(data);
     const currentTemp = data.main.temp;
-    const highTemp = data.main.temp_min;
-    const lowTemp = data.main.temp_max;
+    const highTemp = data.main.temp_max;
+    const lowTemp = data.main.temp_min;
     const humidity = data.main.humidity;
     const wind = data.wind.speed;
     const weatherArray = [];
@@ -118,19 +191,19 @@ const createWeatherColumn2TextDynamically = (weatherData) => {
     p2.textContent = Math.round(weatherData[1]) + "℉";
     p3.textContent = Math.round(weatherData[2]) + "℉";
     p4.textContent = weatherData[3] + "%";
-    p5.textContent = Math.round(weatherData[4]) + "mph";
+    p5.textContent = Math.round(weatherData[4]) + " mph";
     weatherCol2.appendChild(p1);
     weatherCol2.appendChild(p2);
     weatherCol2.appendChild(p3);
     weatherCol2.appendChild(p4);
     weatherCol2.appendChild(p5);
-    
 }
 
-//TODO: Display weather data below main icon
-//TODO: Delete any existing child nodes within a parent
-//TODO: Use localStorage to store default data
-//TODO: Add a button to store default data
-//TODO: Display current time with the date
-//TODO: Create github repository
+const deleteContents = (parentElement) => {
+    let child = parentElement.lastElementChild;
+    while (child) {
+        parentElement.removeChild(child);
+        child = parentElement.lastElementChild;
+    }
+}
 
