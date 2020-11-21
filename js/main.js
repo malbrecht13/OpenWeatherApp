@@ -50,6 +50,7 @@ const setCityNameLabel = async () => {
     searchbox.addEventListener('focus', function(e) {
         searchbox.value = "";
     })
+    
 
     searchbutton.addEventListener('click', async function(e) {
         // console.log(searchbox.value);
@@ -58,6 +59,7 @@ const setCityNameLabel = async () => {
             label.textContent = response.name;
             displayWeather(response.name);
             storeCity(); //This allows the city to be stored in localStorage if the appropriate button is clicked
+            searchbox.value = "";
         } else {
             searchbox.value = "Invalid city.  Please try again...";
         }
