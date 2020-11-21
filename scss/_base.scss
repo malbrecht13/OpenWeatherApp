@@ -45,9 +45,8 @@ body {
     border: 20px solid #333333;
     border-radius: 15px;
     
-    @media only screen and (max-device-width: 400px) {
+    @media only screen and (max-device-width: 480px) {
         min-width: 100vw;
-        border: none;
         border-radius: 0;
     }
     
