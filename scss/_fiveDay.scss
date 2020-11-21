@@ -17,6 +17,9 @@ div#five-day-container {
     display: flex;
     flex-direction: column;
     
+    @media only screen and (max-device-width: 400px) {
+        font-size: 0.8em;
+    }
 
     img {
         max-width: 100%;

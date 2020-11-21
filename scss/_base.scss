@@ -21,7 +21,8 @@ html, body {
     font-family: Arial, Helvetica, sans-serif;
     color: $default-font-color;
     width: 100%;
-    min-height: 80vh;
+    min-height: 70vh;
+    max-height: 100vh;
     //ipad size
     @include mq(768px) {
         font-size: 22px;
@@ -30,15 +31,23 @@ html, body {
 
 body {
     background-color: #eaeaea;
-    margin: 50px 0;
+    margin: 20px 0;
+    @media only screen and (max-device-width: 800px) {
+        margin: 0;
+    }
 }
 
 #wrapper {
-    width: 80%;
     max-width: 700px;
     margin: 0 auto;
     background-image: $bg-gradient;
     min-height: inherit;
     border: 20px solid #333333;
     border-radius: 15px;
+    
+    @media only screen and (max-device-width: 400px) {
+        min-width: 100vw;
+    }
+    
+    
 }
